@@ -20,6 +20,7 @@ public class Ejercicio05 {
                     System.out.print((char)leer);
                     leer = reader.read();
                 }
+
             } catch (FileNotFoundException e) {
                 System.out.println("ERROR" + e.getMessage());
             } catch (IOException e) {

@@ -42,6 +42,7 @@ public class Ejercicio03 {
             System.out.println(archivo.getName() + " no es un fichero");
         }
 
+
         // Obtener el nombre del directorio padre
         String padre = archivo.getParent();
         if (padre != null) {
