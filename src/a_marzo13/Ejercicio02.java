@@ -6,27 +6,30 @@ public class Ejercicio02 {
 
     public static void main(String[] args) {
 
-        if (args.length ==0) {
-            System.out.println("Error: Ingresa el nombre del directorio.");
-        }
-        String ruta = args[0];
 
-        File directorio = new File(ruta);
-
-        if (!directorio.exists()) {
-            System.out.println("Error: El directorio " + ruta + " no existe.");
-        } else if (!directorio.isDirectory()) {
-            System.out.println("Error: " + ruta + " no es un directorio.");
-        } else {
-            String archivos[] = directorio.list();
-            System.out.println("Archivos en el directorio " + ruta + ":");
-
-            for (int i = 0; i < archivos.length; i++) {
-                System.out.println(archivos[i]);
-            }
+        if(args.length < 1){
+            System.out.println("Introduce una ruta, por favor");
         }
 
+        String nombreRuta = "C:\\Users\\danie\\Documents\\ACCESO A DATOS\\WORKSPACE - ACCESO DATOS\\ACCESO A DATOS - RECUPERACION\\src\\a_marzo13";
 
+        File directorio = new File(nombreRuta);
+
+        if(!directorio.exists()){
+            System.out.println("El directorio no existe");
+        }
+
+        System.out.println("---------------------");
+        System.out.println("Ruta del directorio:");
+        System.out.println(args[0] + "\n");
+
+        String [] ficheros = directorio.list();
+
+        System.out.println("---------------------");
+        System.out.println("Ficheros en el directorio");
+        for (int i = 0 ; i < ficheros.length; i ++){
+            System.out.println(ficheros[i]);
+        }
 
     }
 }

@@ -7,28 +7,27 @@ import java.io.IOException;
 public class Ejercicio05 {
     public static void main(String[] args) {
 
-        if(args.length !=1){
-            System.out.println("Introduce un nombre");
-        }else{
-            try{
-                String fichero = args[0];
-                FileReader reader = new FileReader(fichero);
+        if (args.length != 1) {
+            System.out.println("Introduce argumentos");
+        } else {
 
+            try {
+                String nombreFichero = args[0];
+
+                FileReader reader = new FileReader(nombreFichero);
                 int leer = reader.read();
 
-                while (leer != -1){
+                while (leer != -1) {
                     System.out.print((char)leer);
                     leer = reader.read();
                 }
 
             } catch (FileNotFoundException e) {
-                System.out.println("ERROR" + e.getMessage());
+                throw new RuntimeException(e);
             } catch (IOException e) {
-                System.out.println("ERROR" + e.getMessage());
+                throw new RuntimeException(e);
             }
 
-
         }
-
     }
 }
