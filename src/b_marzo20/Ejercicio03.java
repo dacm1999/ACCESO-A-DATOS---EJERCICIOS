@@ -23,6 +23,9 @@ public class Ejercicio03 {
 
             while ((linea = reader.readLine()) != null){
                 String numeros = linea.replaceAll("[0-9]+","");
+
+//                String operadores = numeros.replaceAll("[A-Z]", "");
+//                String cosas = operadores.replaceAll("[¿?é¿ñ,í,ú';.á]", "").strip();
                 String operadores = numeros.replaceAll("[+\\-*/]", "");
 
                 writer.write(operadores);
@@ -42,7 +45,10 @@ public class Ejercicio03 {
                 System.out.println("Fichero vacio");
             }else{
                 do{
+//                    System.out.println(linea2);
+
                     System.out.println(linea2);
+
                 }while ((linea2 = reader2.readLine()) != null);
             }
         } catch (FileNotFoundException e) {
