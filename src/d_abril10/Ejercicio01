@@ -1,0 +1,46 @@
+CREATE TABLE departamentos (
+ dept_no TINYINT(2) not null primary key,
+ dnombre VARCHAR(15),
+ loc VARCHAR(15)
+);
+
+CREATE TABLE empleados(
+ emp_no TINYINT(2) not null primary key,
+ apellido VARCHAR(15),
+ oficio VARCHAR(15),
+ dir TINYINT(2),
+ fecha_alt VARCHAR(10),
+ salario TINYINT(5),
+ comision TINYINT(3),
+ dept_no TINYINT(2),
+ FOREIGN KEY (dept_no) REFERENCES departamentos(dept_no)
+);
+
+
+Por supuesto, aquí te presento los códigos para insertar algunos datos en las tablas "departamentos" y "empleados":
+
+sql
+Copy code
+-- Insertar datos en la tabla departamentos
+INSERT INTO departamentos (dept_no, dnombre, loc) VALUES
+(10, 'VENTAS', 'MADRID'),
+(20, 'INVESTIGACIÓN', 'BARCELONA'),
+(30, 'MARKETING', 'VALENCIA'),
+(40, 'PRODUCCIÓN', 'SEVILLA');
+
+-- Insertar datos en la tabla empleados
+INSERT INTO empleados (emp_no, apellido, oficio, dir, fecha_alt, salario, comision, dept_no) VALUES
+(7369, 'SMITH', 'EMPLEADO', 7902, '17-12-1980', 800, NULL, 20),
+(7499, 'ALONSO', 'VENDEDOR', 7698, '20-02-1981', 1600, 300, 30),
+(7521, 'GARCÍA', 'VENDEDOR', 7698, '22-02-1981', 1250, 500, 30),
+(7566, 'JIMÉNEZ', 'DIRECTOR', 7839, '02-04-1981', 2975, NULL, 20),
+(7654, 'MARTÍN', 'VENDEDOR', 7698, '28-09-1981', 1250, 1400, 30),
+(7698, 'FERNÁNDEZ', 'DIRECTOR', 7839, '01-05-1981', 2850, NULL, 30),
+(7782, 'CLARK', 'DIRECTOR', 7839, '09-06-1981', 2450, NULL, 10),
+(7788, 'GARCÍA', 'ANALISTA', 7566, '19-04-1987', 3000, NULL, 20),
+(7839, 'REY', 'PRESIDENTE', NULL, '17-11-1981', 5000, NULL, 10),
+(7844, 'FERNÁNDEZ', 'VENDEDOR', 7698, '08-09-1981', 1500, 0, 30),
+(7876, 'SÁNCHEZ', 'EMPLEADO', 7788, '22-02-1982', 1100, NULL, 20),
+(7900, 'MARTÍNEZ', 'EMPLEADO', 7698, '03-12-1982', 950, NULL, 30),
+(7902, 'HERNÁNDEZ', 'ANALISTA', 7566, '01-12-1983', 3000, NULL, 20),
+(7934, 'ALONSO', 'EMPLEADO', 7782, '23-01-1983', 1300, NULL, 10);
