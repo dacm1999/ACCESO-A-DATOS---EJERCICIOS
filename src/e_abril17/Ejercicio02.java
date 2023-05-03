@@ -52,7 +52,7 @@ public class Ejercicio02 {
                                         System.out.printf("El departamento no existe");
                                     } else {
 //                                        System.out.printf("Existe");
-
+//
                                         //Compruebo si existe el empleado
                                         String emp_no = args[0];
                                         String comprobarEmp = "Select count(emp_no) from empleados where emp_no =" + emp_no + ";";
