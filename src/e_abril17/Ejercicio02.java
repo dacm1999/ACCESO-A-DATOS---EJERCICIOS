@@ -51,7 +51,7 @@ public class Ejercicio02 {
                                     if (existe == 0) {
                                         System.out.printf("El departamento no existe");
                                     } else {
-                                        System.out.printf("Existe");
+//                                        System.out.printf("Existe");
 
                                         //Compruebo si existe el empleado
                                         String emp_no = args[0];
