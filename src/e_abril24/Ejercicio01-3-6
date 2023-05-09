@@ -1,0 +1,37 @@
+1) --------------------------------------------
+BEGIN
+	SELECT apellido from empleados where emp_no = numEmpleado;
+END
+
+
+2) --------------------------------------------
+BEGIN
+	SELECT salario, comision FROM empleados WHERE apellido = apellido_emp;
+END
+
+
+3) --------------------------------------------
+BEGIN
+  UPDATE empleados
+  SET comision = comision + (salario * 0.05)
+  WHERE departamento IN (Departamento1, Departamento2);
+end
+
+
+6) --------------------------------------------
+begin
+    DECLARE departamentoExiste INT DEFAULT 0;
+    DECLARE numEmpleados INT DEFAULT 0;
+    DECLARE salarioPromedio DECIMAL(10,2) DEFAULT -1;
+
+    SELECT EXISTS(SELECT * FROM departamentos WHERE dept_no = numDepartamento) INTO departamentoExiste;
+
+    IF departamentoExiste = 1 THEN
+        SELECT COUNT(emp_no), ROUND(AVG(salario),2) INTO numEmpleados, salarioPromedio FROM empleados WHERE dept_no = numDepartamento;
+        IF numEmpleados = 0 THEN
+            SET salarioPromedio = 0;
+        END IF;
+    END IF;
+
+    SELECT numEmpleados, salarioPromedio;
+END
