@@ -1,0 +1,17 @@
+/**
+         * Si el usuario pulsa 1 se pondra in pago. Utilizando la interfaz PReparedStament se insertara los datos de pago. para ello se pedira el codigo de cliente
+         * pago, el identificador de pago (solo introducira el numero, por ejemplo 19 y el programama, creara el resto de la clava "ak-std-000019), como fecha se introducira la del dia actual y el total.
+         *
+         *
+         * Si el cliente no existe, entonces se debe crear primero el cliente en la base de datos y para ello solo se pediran los datos necesarios,los que se puedan dejar vacios no es necesario
+         * solicitarlos al usuario. Una vez creador el client, se procedera a insertar el pago de la misma forma que en el anterior apartado.
+         *
+         * Si el usuario inserta 2, se creara los procedimientos y/o funciones necesarias en MySQL para que funcione el siguiente programa
+         * Se solicita al usuario el nombre, apellido y forma de pago de un cliente. Si el lciente no existe se muestra mensaje de la tabla de pago con el que el usuario
+         * ha introducido.
+         *
+         * Solo se podra usar el CallableStamente en este ejercicio, cualquier otra solucion no tendra puntuacion.
+         *
+         * Si el usuario pulsa 3, se cerrará el programa, se pueda pulsar las opciones 1, 2 y 3 tanras veces como se quiera. Cualquier otra opcion marcada
+         * se mostrara error en la opcion, pero no termianra el programa
+         */
