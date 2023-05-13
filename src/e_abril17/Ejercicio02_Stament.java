@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import static java.time.LocalDateTime.now;
 
-public class Ejercicio02 {
+public class Ejercicio02_Stament {
 
     public static void main(String[] args) {
 

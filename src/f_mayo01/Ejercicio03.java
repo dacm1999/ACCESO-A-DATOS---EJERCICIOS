@@ -9,168 +9,152 @@ public class Ejercicio03 {
 
     public static void main(String[] args) {
 
-        File nombreCarpeta = new File("Daniel Contreras Examen");
 
-        if (nombreCarpeta.exists()) {
-            nombreCarpeta.delete();
-        }
-        nombreCarpeta.mkdirs();
+        try {
+
+            Scanner sc = new Scanner(System.in);
+            File carpetaExamen = new File("DanielExamen");
+
+            if (carpetaExamen.isDirectory()) {
+                carpetaExamen.delete();
+            }
+            carpetaExamen.mkdirs();
+
+            if (args.length != 1) {
+                System.out.println("No se puede introducir mas de un argumento");
+            } else {
+                int numFicheros = Integer.parseInt(args[0]);
 
 
-        if (args.length != 1) {
-            System.out.println("Solo se puede introducir un argumento");
-        } else {
-
-            try {
-                int num = Integer.parseInt(args[0]);
-
-                if (num < 1 || num > 5) {
+                if (numFicheros < 1 || numFicheros > 5) {
                     System.out.println("El numero debe ser comprendido entre 1 y 5");
                 } else {
 
-                    BufferedWriter ficheros = null;
-                    for (int i = 1; i <= num; i++) {
-                        File file = new File("Fichero" + i);
-                        file.createNewFile();
-
-                        File destino = new File(nombreCarpeta, "Fichero" + i);
-                        ficheros = new BufferedWriter(new FileWriter(destino));
-
-                        ficheros.write("Fichero" + i);
-                        ficheros.newLine();
-                        ficheros.flush();
+                    BufferedWriter writer = null;
+                    for (int i = 1; i <= numFicheros; i++) {
+                        File files = new File(carpetaExamen, "Fichero" + i);
+                        files.createNewFile();
+                        writer = new BufferedWriter(new FileWriter(files));
+                        writer.write("Fichero" + i);
+                        writer.newLine();
+                        writer.flush();
                     }
-                    ficheros.close();
 
-                    boolean salir = false;
+
                     int opciones = 0;
-                    do {
-                        System.out.println("1. Copiar. \n"
-                                + "2. Borrar. \n"
-                                + "3. Escribir. \n"
-                                + "4. Salir. \n"
-                        );
+                    boolean ejecutando = true;
 
-                        Scanner sc = new Scanner(System.in);
+                    do {
+                        System.out.println("---------MENU---------");
+                        System.out.println("1-Copiar");
+                        System.out.println("2-Borrar");
+                        System.out.println("3-Escribir");
+                        System.out.println("4-Salir" + "\n" +
+                                "Introduce una opcion");
+
                         opciones = sc.nextInt();
+
+
+
                         switch (opciones) {
 
+                            //copiar
                             case 1: {
-                                BufferedWriter ficheroExamen = new BufferedWriter(new FileWriter(new File(nombreCarpeta, "Examen")));
-                                for (int i = 1; i <= num; i++) {
-                                    BufferedReader reader1 = new BufferedReader(new FileReader(new File(nombreCarpeta, "Fichero" + i)));
-                                    String linea = "";
 
-                                    while ((linea = reader1.readLine()) != null) {
-                                        System.out.println(linea);
-                                        ficheroExamen.write(linea);
-                                        ficheroExamen.newLine();
+                                BufferedWriter escribirExamen = new BufferedWriter(new FileWriter(new File(carpetaExamen,"Examen")));
+                                BufferedReader leerFicheros = null;
+                                String lineas;
+
+                                for(int i = 1; i <= numFicheros; i++){
+                                    File files = new File(carpetaExamen, "Fichero"+i);
+                                    leerFicheros = new BufferedReader(new FileReader(files));
+
+                                    while ((lineas = leerFicheros.readLine())!= null){
+                                        escribirExamen.write(lineas);
+                                        escribirExamen.newLine();
+                                        escribirExamen.flush();
                                     }
-                                    reader1.close();
-                                }
-                                ficheroExamen.close();
-                                break;
-                            }
 
+                                }
+                                leerFicheros.close();
+                                escribirExamen.close();
+
+                                leerFicheros = new BufferedReader(new FileReader(new File(carpetaExamen,"Examen")));
+                                System.out.println("----------- Contenido del fichero EXAMEN: -----------" );
+                                while ((lineas = leerFicheros.readLine())!= null){
+                                    System.out.println(lineas);
+                                }
+                            }
+                            break;
+
+                            //borrar
                             case 2: {
 
-                                File file = new File(nombreCarpeta, "Examen");
-                                if (file.exists()) {
-                                    file.delete();
-                                    System.out.println("El archivo ha sido eliminado");
-                                }
+                                String op = String.valueOf(numFicheros);
+                                String valores [] = op.split(" ");
+
+                                int op1 = Integer.parseInt(valores[0]);
+                                int op2 = Integer.parseInt(valores[1]);
+
+                                System.out.println(op1);
+                                System.out.println(op2);
+
 
                             }
                             break;
 
-
+                            //Escribir
                             case 3: {
-                                String linea1;
-                                BufferedReader reader1 = new BufferedReader(new FileReader(new File(nombreCarpeta, "Examen")));
-                                FileWriter writer1 = new FileWriter(new File(nombreCarpeta, "Examen"), true);
 
-                                if ((linea1 = reader1.readLine()) != null) {
-                                    writer1.append("Contreras");
+                                FileWriter writer2 = new FileWriter(new File(carpetaExamen,"Examen"),true);
+                                writer2.append("Daniel Contreras");
+
+                                String firma = "Daniel Contreras";
+                                for(int i =1; i <= numFicheros; i++){
+                                    FileWriter writer1 = new FileWriter(new File(carpetaExamen,"Fichero"+i),true);
+                                    writer1.append(firma);
+
+                                    writer1.close();
                                 }
 
-                                reader1.close();
-                                writer1.close();
-
-                                for (int i = 1; i <= num; i++) {
-                                    BufferedReader reader2 = new BufferedReader(new FileReader(new File(nombreCarpeta, "Fichero" + i)));
-                                    FileWriter writer2 = new FileWriter(new File(nombreCarpeta, "Fichero" + i), true);
-
-                                    String linea2;
-                                    if ((linea2 = reader2.readLine()) != null) {
-                                        writer2.append("Contreras");
-                                    }
-
-                                    System.out.println("Fichero" + i + " examen ha sido firmado");
-                                    reader2.close();
-                                    writer2.close();
-
-                                }
-
-                                System.out.println("Fichero examen ha sido firmado");
+                                writer2.close();
                             }
                             break;
 
+
+                            //salir
                             case 4: {
 
-                                System.out.println("¿Desea mantener los ficheros? Y/N");
-
-                                String eliminarFicheros = "";
-
-                                eliminarFicheros = sc.next();
-
-
-                                for (int i = 1; i <= num; i++) {
-                                    File files = new File(nombreCarpeta, "Fichero" + i);
-
-                                    if(eliminarFicheros.equals("N")){
+                                System.out.println("Desea eliminar los archivos? Y/N");
+                                String confirmar = sc.next();
+                                File files = null;
+                                if (confirmar.equalsIgnoreCase("Y")) {
+                                    for (int i = 1; i <= numFicheros; i++) {
+                                        files = new File(carpetaExamen, "Fichero" + i);
                                         files.delete();
-                                        System.out.println("Se ha eliminado " + files.getName());
-                                    } else if (eliminarFicheros.equals("Y")) {
-                                        System.out.println("Se mantendran los ficheros");
                                     }
-
                                 }
-                                System.out.println("Adios");
-                                salir = true;
+                                ejecutando = false;
                             }
                             break;
 
-
                             default: {
-                                System.out.println("Introduce un numero correcto");
+                                System.out.println("Introduce una opcion valida");
                             }
                             break;
                         }
 
 
-                    } while (!salir);
+                    } while (ejecutando);
 
                 }
 
-
-            } catch (NumberFormatException ex) {
-                System.out.println("Introduce un numero en vez de un caracter");
-                Scanner sc = new Scanner(System.in);
-                int num = 0;
-                do {
-                    System.out.println("Introduce un numero de 1 al 5");
-                    num = sc.nextInt();
-                } while (num < 1 || num > 5);
-
-                args[0] = String.valueOf(num);
-                System.out.println(args[0]);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NumberFormatException ex) {
+            System.out.println("Introduce un numero en vez de un caracter");
         }
-
 
     }
 }

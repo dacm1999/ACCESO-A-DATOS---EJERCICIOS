@@ -59,10 +59,11 @@ public class Examen1 {
                         String nombre = sc.next();
                         System.out.println("Introduce un apellido de cliente: ");
                         String apellido = sc.next();
-                        System.out.println("Introduce un nuevo m�todo de pago: ");
+                        System.out.println("Introduce un nuevo metodo de pago: ");
                         String metodo = sc.next();
                         detalle(nombre, apellido, metodo);
                         sc.nextLine();
+
                     }
                     break;
 
@@ -71,8 +72,9 @@ public class Examen1 {
                     }
                     break;
 
-                    default:
+                    default: {
                         System.out.println("Introduce una opcion valida");
+                    }
                         break;
                 }
 
