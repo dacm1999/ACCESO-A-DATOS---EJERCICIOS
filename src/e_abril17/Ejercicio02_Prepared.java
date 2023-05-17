@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 import static java.time.LocalDateTime.now;
+import static java.time.LocalDateTime.of;
 
 public class Ejercicio02_Prepared {
 
@@ -24,17 +25,20 @@ public class Ejercicio02_Prepared {
             String dir = args[3];
             String dept_no = args[7];
             String emp_no = args[0];
+
             if (apellido.equals(" ") || apellido.equals(null)) {
-                System.out.println("Introduce un apellido correcto");
+                System.out.println("Introduce un apellido correcto ");
             } else {
                 if (oficio.equals(" ") || oficio.equals(null)) {
-                    System.out.println("Introduce un oficio valido");
+                    System.out.println("Introduce un oficio correcto ");
                 } else {
 
-                    LocalDateTime time = now();
-                    if (!fecha_alt.equals(time.toLocalDate().toString())) {
+                    LocalDateTime fecha = now();
+
+                    if (!fecha_alt.equals(fecha.toLocalDate().toString())) {
                         System.out.println("Introduce la fecha de hoy");
                     } else {
+
                         if (Integer.parseInt(salario) <= 0) {
                             System.out.println("Introduce un salario mayor a 0");
                         } else {
@@ -46,80 +50,74 @@ public class Ejercicio02_Prepared {
                                     Class.forName("org.sqlite.JDBC");
                                     Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/empresa", "root", "");
 
-                                    String comprobarEmpleado = "Select count(emp_no) from empleados where emp_no = " + emp_no + " ;";
-                                    Statement statement = conexion.createStatement();
+                                    String comprobarEmpleado = "SELECT COUNT(EMP_NO) FROM EMPLEADOS WHERE EMP_NO = " + emp_no + ";";
 
-                                    ResultSet rs = statement.executeQuery(comprobarEmpleado);
-                                    int vd = 0;
+
+                                    Statement st = conexion.createStatement();
+                                    ResultSet rs = st.executeQuery(comprobarEmpleado);
+
+                                    int existe = 0;
+                                    while (rs.next()) {
+                                        existe = rs.getInt(1);
+                                    }
+
+                                    if (existe == 1) {
+                                        System.out.println("El empleado introducido ya existe");
+                                    }
+
+                                    String comprobarDir = "SELECT COUNT(EMP_NO) FROM EMPLEADOS WHERE DIR = " + dir + ";";
+                                    rs = st.executeQuery(comprobarDir);
+
+                                    existe = 0;
 
                                     while (rs.next()) {
-                                        vd = rs.getInt(1);
+                                        existe = rs.getInt(1);
+                                    }
+                                    if (existe == 0) {
+                                        System.out.println("El numero de que jefe no existe, introduce otro");
                                     }
 
-                                    if (vd == 1) {
-                                        System.out.println("El numero de empleado ya existe, por favor introduce otro ");
-                                    }
+                                    String comprobarDept = "SELECT COUNT(EMP_NO) FROM EMPLEADOS WHERE dept_no = " + dept_no + ";";
+                                    rs = st.executeQuery(comprobarDept);
 
-
-                                    String comprobarDir = "Select count(dir) from empleados where dir = " + dir + ";";
-                                    rs = statement.executeQuery(comprobarDir);
-                                    vd = 0;
-
+                                    existe = 0;
                                     while (rs.next()) {
-                                        vd = rs.getInt(1);
+                                        existe = rs.getInt(1);
                                     }
 
-                                    if (vd == 0) {
-                                        System.out.println("El numero del dir no existe, introduce uno existente");
+                                    if (existe == 0) {
+                                        System.out.println("Introduce un departamento que exista");
                                     }
 
-                                    String comprobarDept_no = "Select count(dept_no) from empleados where dept_no = " + dept_no + ";";
-                                    rs = statement.executeQuery(comprobarDept_no);
-                                    vd = 0;
+                                    st.close();
 
-                                    while (rs.next()) {
-                                        vd = rs.getInt(1);
-                                    }
+                                    String insertEmpleado = "INSERT INTO EMPLEADOS VALUES (?,?,?,?,?,?,?,?)";
+                                    PreparedStatement pst = conexion.prepareStatement(insertEmpleado);
 
-                                    if (vd == 0) {
-                                        System.out.println("No existe el departamento indicado, introduce otro");
-                                    }
-
-
-                                    statement.close();
-
-                                    String insert = "INSERT INTO empleados VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-
-                                    PreparedStatement pst = conexion.prepareStatement(insert);
-
-                                    pst.setString(1, emp_no);
+                                    pst.setInt(1, Integer.parseInt(emp_no));
                                     pst.setString(2, apellido);
                                     pst.setString(3, oficio);
-                                    pst.setString(4, dir);
+                                    pst.setInt(4, Integer.parseInt(dir));
                                     pst.setString(5, fecha_alt);
-                                    pst.setString(6, salario);
-                                    pst.setString(7, comision);
-                                    pst.setString(8, dept_no);
+                                    pst.setInt(6, Integer.parseInt(salario));
+                                    pst.setInt(7, Integer.parseInt(comision));
+                                    pst.setInt(8, Integer.parseInt(dept_no));
 
-                                    int filas = pst.executeUpdate();
+                                    pst.executeUpdate();
 
-                                    System.out.println("Filas afectadas " + filas);
+                                    System.out.println("Datos introducidos");
 
-                                    rs.close();
                                     pst.close();
-                                    conexion.close();
+                                    rs.close();
 
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 } catch (ClassNotFoundException e) {
                                     throw new RuntimeException(e);
                                 }
-
                             }
                         }
                     }
-
-
                 }
             }
         }

@@ -30,12 +30,6 @@ public class Ejercicio01 {
                         nombres[i] = nombres[j];
                         nombres[j] = nombreTemp;
 
-                        int temp = edades[i];
-                        String temp2 = nombres[i];
-                        edades[i] = edades[j];
-                        edades[j] = temp;
-                        nombres[i] = nombres[j];
-                        nombres[j] = temp2;
                     }
 
 

@@ -3,7 +3,6 @@ package g_examenes.JDBC.Examen01;
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.concurrent.locks.StampedLock;
 
 public class Examen1 {
 

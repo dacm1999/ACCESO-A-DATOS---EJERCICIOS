@@ -1,5 +1,7 @@
 package f_mayo01;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import java.sql.*;
 
 public class Ejercicio01 {
@@ -8,108 +10,93 @@ public class Ejercicio01 {
     public static void main(String[] args) {
 
 
+        String nombre = args[1];
+        String apellido = args[2];
+        String num_Noches = args[3];
+        String num_Huespedes = args[4];
+        String tipo_Alojamiento = args[5];
+        String importe = args[6];
+
+        String dni = args[0];
+
+
         if (args.length != 7) {
             System.out.println("Introduce los argumentos necesarios");
         } else {
-            String dni = args[0];
-
-            if (dni.equals("") || dni.equals(null)) {
-                System.out.println("Introduce un dni valido");
+            if (nombre.equals(" ") || nombre.equals(null)) {
+                System.out.println("Introduce un nombre correcto ");
             } else {
-                String nombre = args[1];
-
-                if (nombre.equals("") || nombre.equals(null)) {
-                    System.out.println("Introduce un nombre correcto");
+                if (apellido.equals(" ") || apellido.equals(null)) {
+                    System.out.println("Introduce un apellido correcto");
                 } else {
-                    String apellido = args[2];
-                    if (apellido.equals("") || apellido.equals(null)) {
-                        System.out.println("Introduce un apellido correcto");
+                    if (Integer.parseInt(num_Noches) <= 0) {
+                        System.out.println("Introduce un valor mayor a 0 para las noches");
                     } else {
-                        String pernoctas = args[3];
-                        if (Integer.parseInt(pernoctas) <= 0) {
-                            System.out.println("Introduce un numero mayor de noches a 0");
-                        } else {
-                            String numHuespedes = args[4];
-                            if (Integer.parseInt(numHuespedes) <= 0) {
-                                System.out.println("Introduce un numero de huespedes mayor a 0");
+                        if (Integer.parseInt(num_Huespedes) <= 0) {
+                            System.out.println("Introduce un numero de huespedes mayor a 0");
+                        }else{
+                            if (!tipo_Alojamiento.equals("SA") && !tipo_Alojamiento.equals("AD") && !tipo_Alojamiento.equals("MP") && !tipo_Alojamiento.equals("PC")) {
+                                System.out.println("DEBES INTRODUCE TIPO DE ALOJAMIENTO CORRECTO");
                             } else {
-                                String tipoAlojamiento = args[5];
-                                if (!tipoAlojamiento.equalsIgnoreCase("MP") && !tipoAlojamiento.equalsIgnoreCase("PC") && !tipoAlojamiento.equalsIgnoreCase("AD") &&
-                                        !tipoAlojamiento.equalsIgnoreCase("SA")) {
+                                if (Float.parseFloat(importe) <= 0) {
+                                    System.out.println("Debes introducir un importe mayor a 0");
+                                }else{
 
-                                    System.out.println("Introduce un tipo de alojamiento valido");
-                                } else {
-                                    String importe = args[6];
-                                    if (Integer.parseInt(importe) <= 0) {
-                                        System.out.println("Introduce un importe mayor a 0");
-                                    } else {
-                                        try {
-                                            Class.forName("org.sqlite.JDBC");
-                                            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/hostal", "root", "");
+                                    try{
+                                        Class.forName("org.sqlite.JDBC");
+                                        Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/hostal", "root", "");
 
+                                        Statement st = conexion.createStatement();
 
-                                            String comprobarCliente = "SELECT COUNT(DNI) FROM huespedes WHERE DNI = '" + dni + "';";
+                                        String comprobarDNI = "SELECT COUNT(DNI) FROM huespedes WHERE DNI = '" + dni + "';";
+                                        ResultSet rs = st.executeQuery(comprobarDNI);
 
-                                            int verificarDNI = 0;
-                                            PreparedStatement preparedStatement = conexion.prepareStatement(comprobarCliente);
-                                            ResultSet resultSet = preparedStatement.executeQuery(comprobarCliente);
+                                        int existe = 0;
 
-                                            while (resultSet.next()){
-                                                verificarDNI = resultSet.getInt(1);
-                                            }
-
-                                            if(verificarDNI == 1){
-                                                System.out.println("El numero del DNI YA EXISTE");
-                                            }
-
-                                            String sql = "INSERT INTO huespedes VALUES('" + dni + "', '"
-                                                    + nombre
-                                                    + "', '"
-                                                    + apellido
-                                                    + "', '"
-                                                    + pernoctas
-                                                    + "', '"
-                                                    + numHuespedes
-                                                    + "', '"
-                                                    + tipoAlojamiento
-                                                    + "', '"
-                                                    + importe
-                                                    + "');";
-
-                                            preparedStatement = conexion.prepareStatement(sql);
-                                            int insertar = preparedStatement.executeUpdate(sql);
-
-
-                                            String sql2 = "Select * from Huespedes";
-                                            preparedStatement = conexion.prepareStatement(sql2);
-                                            resultSet = preparedStatement.executeQuery();
-
-                                            while (resultSet.next()) {
-                                                System.out.println("DNI: " + resultSet.getString(1) +
-                                                        " NOMBRE: " + resultSet.getString(2) +
-                                                        " APELLIDO: " + resultSet.getString(3) +
-                                                        " NOCHES: " + resultSet.getString(4) +
-                                                        " HUESPEDES: " + resultSet.getString(5) +
-                                                        " TIPO ALOJAMIENTO: " + resultSet.getString(6) +
-                                                        " IMPORTE: " + resultSet.getString(7));
-                                            }
-
-
-                                            System.out.println("Numero de filas afectadas " + insertar);
-
-                                        } catch (SQLException e) {
-                                            throw new RuntimeException(e);
-                                        } catch (ClassNotFoundException e) {
-                                            throw new RuntimeException(e);
+                                        while (rs.next()){
+                                            existe = rs.getInt(1);
                                         }
+
+                                        if(existe == 1){
+                                            System.out.println("EL DNI INTRODUCIDO YA EXISTE, POR FAVOR INTRODUCE OTRO");
+                                        }
+
+
+                                        st.close();
+                                        rs.close();
+
+
+                                        String insert = "INSERT into huespedes values (?,?,?,?,?,?,?)";
+                                        PreparedStatement statement = conexion.prepareStatement(insert);
+
+                                        statement.setString(1,dni);
+                                        statement.setString(2,nombre);
+                                        statement.setString(3,apellido);
+                                        statement.setInt(4,Integer.parseInt(num_Noches));
+                                        statement.setInt(5,Integer.parseInt(num_Huespedes));
+                                        statement.setString(6,tipo_Alojamiento);
+                                        statement.setFloat(7,Float.parseFloat(importe));
+
+
+                                        statement.executeUpdate();
+                                        System.out.println("Datos introducidos");
+
+
+
+                                    } catch (SQLException e) {
+                                        System.out.println("ERROR SQL");
+                                    } catch (ClassNotFoundException e) {
+                                        System.out.println("Clase no encontrada");
                                     }
                                 }
+
                             }
+
                         }
                     }
+
                 }
             }
-
         }
     }
 }
