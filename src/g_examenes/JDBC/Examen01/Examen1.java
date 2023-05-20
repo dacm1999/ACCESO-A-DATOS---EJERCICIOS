@@ -56,6 +56,7 @@ public class Examen1 {
                     case 2: {
                         System.out.println("Introduce un nombre de cliente: ");
                         String nombre = sc.next();
+                        sc.nextLine();
                         System.out.println("Introduce un apellido de cliente: ");
                         String apellido = sc.next();
                         System.out.println("Introduce un nuevo metodo de pago: ");
@@ -141,6 +142,7 @@ public class Examen1 {
 
                         pst.close();
 
+                        break;
                     } else {
                         System.out.println("Codigo de pago duplicado");
                     }
@@ -188,6 +190,7 @@ public class Examen1 {
 
             Statement sent1 = conexion.createStatement();
             String clieExist = String.format("SELECT COUNT(*) FROM cliente WHERE codigo_cliente=%d", codCliente);
+
             ResultSet rs1 = sent1.executeQuery(clieExist);
             int codClieExist = 0;
             while (rs1.next()) {
@@ -222,14 +225,16 @@ public class Examen1 {
 
             CallableStatement llamada = conexion.prepareCall(proc);
 
-            llamada.registerOutParameter(3,Types.VARCHAR);
             llamada.setString(1,nombre);
-            llamada.setString(1, nombre);
             llamada.setString(2, apellido);
             llamada.setString(3, metodo);
+            llamada.registerOutParameter(4,Types.VARCHAR);
             llamada.executeUpdate();
 
-            System.out.println(llamada.getString(4));
+
+            String lla = llamada.getString(4);
+            System.out.println(lla);
+
 
             llamada.close();
             conexion.close();
