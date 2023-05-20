@@ -45,13 +45,15 @@ public class Ejercicio06 {
                 writer.write("\n");
             }
 
-            System.out.println("10 primeras lineas tratadas");
+            System.out.println("Linea 0 a 10 tratadas");
 
             for(int i = 10; i < 20; i ++){
                 writer.write(cadenaTexto[i]);
                 writer.append('&');
                 writer.newLine();
             }
+
+            System.out.println("Linea 10 a 20 tratadas");
 
             int cont = 0;
 
@@ -67,6 +69,8 @@ public class Ejercicio06 {
                 }
                 writer.write("\n");
             }
+
+            System.out.println("Linea 20 a 25 tratadas");
 
             reader.close();
             writer.close();

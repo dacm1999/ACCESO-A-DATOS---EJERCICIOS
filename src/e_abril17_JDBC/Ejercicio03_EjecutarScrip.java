@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Ejercicio03 {
+public class Ejercicio03_EjecutarScrip {
 
     public static void main(String[] args) {
 
@@ -31,7 +31,7 @@ public class Ejercicio03 {
             String consulta = stringBuilder.toString();
             System.out.println(consulta);
 
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/empresa", "root", "");
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/Videoclub?allowMultiQueries=true", "root", "");
 
             Statement statement = conexion.createStatement();
             int resul = statement.executeUpdate(consulta);
