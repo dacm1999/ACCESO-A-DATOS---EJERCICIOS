@@ -77,8 +77,9 @@ public class Examen01_PR {
 
                     String verificarPago = "SELECT COUNT(id_pago) FROM pago WHERE id_pago = '" + id + "';";
 
+                   String verificarPago2 = "SELECT count(id_pago) from pago where id_pago = '" + id + "';";
                     Statement st = conexion.createStatement();
-                    ResultSet rs = st.executeQuery(verificarPago);
+                    ResultSet rs = st.executeQuery(verificarPago2);
 
                     int existe = 0;
 

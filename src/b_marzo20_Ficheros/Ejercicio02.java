@@ -1,9 +1,6 @@
 package b_marzo20_Ficheros;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public class Ejercicio02 {
 
@@ -11,48 +8,41 @@ public class Ejercicio02 {
 
 
         try {
-            File file = new File("articulo.txt");
-            RandomAccessFile fichero = new RandomAccessFile(file,"r");
+            BufferedReader reader = new BufferedReader(new FileReader("articulo.txt"));
+            int lince = 0;
+            int tigre = 0;
+
+            String lineas = "";
+            char [] caracteres = null;
 
 
-            int posicion = 0;
-            char tigre [] = new char[5], aux;
-            char lince [] = new char[5], aux2;
+            while ((lineas = reader.readLine())!= null){
+                caracteres = lineas.toCharArray();
 
-            for(;;){
-                fichero.seek(posicion);
+                for(int i = 0; i < caracteres.length; i++){
 
+                    if(caracteres[i] == ' ' && caracteres[i+1] == 'l' &&  caracteres[i+2] == 'i' &&
+                            caracteres[i+3] == 'n' && caracteres[i+4] == 'c' &&  caracteres[i+5] == 'e'){
+                        lince++;
 
-                for(int i =0; i < tigre.length; i++){
-                    aux = fichero.readChar();
-                    tigre[i] =aux;
-                }
+                    }
 
-                for(int k =0; k < lince.length; k++){
-                    aux2 = fichero.readChar();
-                    lince[k] = aux2;
-                }
+                    if(caracteres[i] == ' ' && caracteres[i+1] == 't' &&  caracteres[i+2] == 'i' &&
+                            caracteres[i+3] == 'g' && caracteres[i+4] == 'r' &&  caracteres[i+5] == 'e'){
+                        tigre++;
 
-                String animal1 = new String(tigre);
-                String animal2 = new String(lince);
-
-                if (animal1.equals("tigre") && animal2.equals("lince")){
-                    System.out.printf("");
-                    System.out.println("Lista animales: " + lince);
-                    System.out.println("Lista animales2: " + tigre);
-                    posicion = posicion + 696;
-                }
-
-                if(fichero.getFilePointer() == fichero.length()){
-                    break;
+                    }
                 }
             }
 
+            System.out.println("Tigre " + tigre);
+            System.out.println("Lince " + lince);
 
         } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado");
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            System.out.println("ERROR E/O");
+            throw new RuntimeException(e);
         }
+
     }
 }

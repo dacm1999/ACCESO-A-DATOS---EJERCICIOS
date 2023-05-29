@@ -81,22 +81,12 @@ public class Ejercicio01 {
             String leerNombre;
             int leerEdad;
 
-            do {
-
+            while(true){
                 leerNombre = leerMenores.readUTF();
                 leerEdad = leerMenores.readInt();
+
                 System.out.println("Nombre: " + leerNombre + " " + " edad: " + leerEdad);
-
-            }while ((leerNombre = leerMenores.readUTF()) != null);
-//
-//            while(true){
-//                leerNombre = leerMenores.readUTF();
-//                leerEdad = leerMenores.readInt();
-//
-//                System.out.println("Nombre: " + leerNombre + " " + " edad: " + leerEdad);
-//            }
-            leerMenores.close();
-
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado");
         } catch (IOException e) {

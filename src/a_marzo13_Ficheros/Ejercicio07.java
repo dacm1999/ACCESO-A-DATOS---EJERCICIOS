@@ -1,6 +1,7 @@
 package a_marzo13_Ficheros;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class Ejercicio07 {
@@ -21,32 +22,36 @@ public class Ejercicio07 {
             String linea3;
 
             while (((linea1 = reader1.readLine()) != null) && ((linea2 = reader2.readLine()) != null)) {
-                String[] anoNacimiento = linea2.split(" ");
-                String[] nombres = linea1.split(" ");
 
-                int[] ano = new int[anoNacimiento.length];
+                String [] anoNacimiento = linea2.split(" ");
+                int [] anosNacimiento = new int[anoNacimiento.length];
+
+
+                String  [] nombre = linea1.split(" ");
+
+                Calendar years = Calendar.getInstance();
+
 
                 for (int i = 0; i < anoNacimiento.length; i++) {
-                    ano[i] = Integer.parseInt(anoNacimiento[i]);
+                    anosNacimiento[i] = Integer.parseInt(anoNacimiento[i]);
                 }
+                for(int i = 0; i < anoNacimiento.length; i++){
 
-                for (int i = 0; i < nombres.length; i++) {
+                    int edad = years.get(Calendar.YEAR) - anosNacimiento[i];
 
-                    // Calcula la edad a partir del año de nacimiento
-                    Calendar cal = Calendar.getInstance();
-                    int edad = cal.get(Calendar.YEAR) - ano[i];
-                    String mayorEdad;
-                    // Comprueba si la persona es mayor de edad
-                    if(edad >= 18){
-                        mayorEdad = "S";
+                    String mayorEdad = "";
+
+                    if(edad < 18){
+                        mayorEdad = "N";
                     }else{
-                        mayorEdad = " N";
+                        mayorEdad = "S";
                     }
-                    // Escribe los datos en el fichero
-                    escribir2.write(nombres[i] + " " + ano[i] + " " + edad + " " + mayorEdad);
+
+                    escribir2.write("Nombre: " + nombre[i] + " Año: " + anoNacimiento[i] + " Edad  "+ edad + " " + mayorEdad);
                     escribir2.newLine();
                     escribir2.flush();
                 }
+
 
             }
             reader1.close();

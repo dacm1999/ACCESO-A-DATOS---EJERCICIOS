@@ -10,8 +10,8 @@ public class Ejercicio03 {
             Connection conexion = DriverManager.getConnection("jdbc:sqlite:C:/SQLITE/empleados.db");
 
             Statement sentencia = conexion.createStatement();
-            String sql = "select * from empleados where dir = 7698;";
-
+            int dir = 7698;
+            String sql = "select * from empleados where dir ='"+dir+"';";
             ResultSet rs = sentencia.executeQuery(sql);
 
             while (rs.next()){

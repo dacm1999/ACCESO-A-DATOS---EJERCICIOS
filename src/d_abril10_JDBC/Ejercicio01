@@ -21,14 +21,14 @@ Por supuesto, aquí te presento los códigos para insertar algunos datos en las 
 
 sql
 Copy code
--- Insertar datos en la tabla departamentos
+-- Examen02 datos en la tabla departamentos
 INSERT INTO departamentos (dept_no, dnombre, loc) VALUES
 (10, 'VENTAS', 'MADRID'),
 (20, 'INVESTIGACIÓN', 'BARCELONA'),
 (30, 'MARKETING', 'VALENCIA'),
 (40, 'PRODUCCIÓN', 'SEVILLA');
 
--- Insertar datos en la tabla empleados
+-- Examen02 datos en la tabla empleados
 INSERT INTO empleados (emp_no, apellido, oficio, dir, fecha_alt, salario, comision, dept_no) VALUES
 (7369, 'SMITH', 'EMPLEADO', 7902, '17-12-1980', 800, NULL, 20),
 (7499, 'ALONSO', 'VENDEDOR', 7698, '20-02-1981', 1600, 300, 30),

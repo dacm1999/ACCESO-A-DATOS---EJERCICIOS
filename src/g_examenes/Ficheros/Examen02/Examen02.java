@@ -21,9 +21,9 @@ public class Examen02 {
         }else{
 
             try{
-                int countFicheros = Integer.parseInt(args[0]);
+                int cantidadFicheros = Integer.parseInt(args[0]);
 
-                for(int i = 1; i <= countFicheros; i++){
+                for(int i = 1; i <= cantidadFicheros; i++){
 
                     File files = new File(carpetaExamen, "Fichero"+i);
                     files.createNewFile();
@@ -52,7 +52,7 @@ public class Examen02 {
                             BufferedReader leerFicheros = null;
                             String lineas="";
 
-                            for(int i = 1; i <= countFicheros; i++){
+                            for(int i = 1; i <= cantidadFicheros; i++){
                                 File files = new File(carpetaExamen, "Fichero"+i);
                                 leerFicheros = new BufferedReader(new FileReader(files));
 
@@ -109,7 +109,7 @@ public class Examen02 {
                             FileWriter writer2 = new FileWriter(new File(carpetaExamen,"Examen"),true);
 
                             String firma = "Daniel Contreras";
-                            for(int i =1; i <= countFicheros; i++){
+                            for(int i =1; i <= cantidadFicheros; i++){
                                 FileWriter writer1 = new FileWriter(new File(carpetaExamen,"Fichero"+i+""),true);
                                 writer1.append("\n"+firma);
 
@@ -129,7 +129,7 @@ public class Examen02 {
 
                             if(conservar.equalsIgnoreCase("N")){
 
-                                for(int i =1; i <= countFicheros; i++){
+                                for(int i =1; i <= cantidadFicheros; i++){
 
                                     File files = new File(carpetaExamen, "Fichero" + i);
                                     System.out.println("Eliminando fichero: " + files.getAbsolutePath());

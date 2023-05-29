@@ -57,6 +57,10 @@ public class Ejercicio03 {
             throw new RuntimeException(e);
         }
 
+        String texto = "9 + 3 - 4 + 6 - 7 - 1 / 10 - 2 + 1 + 1 * 2 / 4 - 2 + 1 - 3 + 3";
+        int o =9 + 3 - 4 * 6 - 7 - 1 / 10 - 2 + 1 + 1 * 2 / 4 - 2 + 1 - 3 + 3;
+        System.out.println(o);
+
 
 
     }

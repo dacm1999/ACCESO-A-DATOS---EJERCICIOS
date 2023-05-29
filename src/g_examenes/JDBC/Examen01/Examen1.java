@@ -179,6 +179,8 @@ public class Examen1 {
         } catch (InputMismatchException ex) {
             System.out.println("Introduce un valor correcto");
         }
+
+
     }
 
 

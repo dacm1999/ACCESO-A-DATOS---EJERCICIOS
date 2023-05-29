@@ -16,35 +16,39 @@ public class Prueba {
 
             String linea1, linea2, linea3 = "";
 
-            while ((linea1 = leerAnyos.readLine()) != null && (linea2 = leerAlumnos.readLine())!= null){
 
-//                System.out.println(linea1);
+            while ((linea1 = leerAnyos.readLine()) != null && (linea2 = leerAlumnos.readLine()) != null){
 
-                String [] fechaNacimiento = linea1.split(" ");
-                String [] nombre = linea2.split(" ");
-                int ano [] = new int[fechaNacimiento.length];
+                String [] anoNacimiento = linea1.split(" ");
+                String [] nombreAlumno = linea2.split(" ");
 
-                for(int i = 0; i < ano.length; i++){
-                    ano[i] = Integer.parseInt(fechaNacimiento[i]);
+                int [] edadAlumnos = new int[anoNacimiento.length];
 
-                    Calendar date = Calendar.getInstance();
-                    int edad = date.get(Calendar.YEAR) - ano[i];
+                for(int i =0; i < edadAlumnos.length; i++){
+                    edadAlumnos [i]= Integer.parseInt(anoNacimiento[i]);
+                    System.out.println(edadAlumnos[i]);
 
-                    String mayorEdad = "";
-                    if(edad < 18){
-                        mayorEdad = "N";
-                    }else{
+                    Calendar calendar = Calendar.getInstance();
+
+                    int edad = calendar.get(Calendar.YEAR) - edadAlumnos[i];
+
+                    String mayorEdad;
+
+                    if(edad >= 18){
                         mayorEdad = "S";
+                    }else{
+                        mayorEdad = "N";
                     }
 
 
-                    writer.write(nombre[i] + " " + fechaNacimiento[i] + " " + edad + " " + mayorEdad);
-                    writer.newLine();
-                    writer.flush();
-
+                    writer.write("Nombre " + nombreAlumno[i] + " Año nacimiento " + anoNacimiento[i] + " Edad: " + edad + " MayorEdad: " + mayorEdad + "\n");
                 }
 
             }
+
+            writer.close();
+            leerAnyos.close();
+            leerAlumnos.close();
 
             System.out.println("Fichero INFO.TXT ESCRITO" );
 
@@ -62,6 +66,7 @@ public class Prueba {
 
 
             if((linea2 = leerAlumnos.readLine()) == null){
+                System.out.println("------------FICHERO INFO.TXT------------");
                 System.out.println("Fichero vacio");
             }else{
                 System.out.println("------------FICHERO ALUMNOS.TXT------------");
@@ -71,6 +76,7 @@ public class Prueba {
             }
 
             if((linea3 = leerInfo.readLine()) == null){
+                System.out.println("------------FICHERO INFO.TXT------------");
                 System.out.println("Fichero vacio");
             }else{
                 System.out.println("------------FICHERO INFO.TXT------------");
